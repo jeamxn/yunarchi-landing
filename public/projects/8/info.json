@@ -1,4 +1,6 @@
 {
 	"name": "방이동 오피스텔",
-	"thumbnail": "0.jpg"
+	"thumbnail": "0.jpg",
+	"num": 6,
+	"extension": "jpg"
 }

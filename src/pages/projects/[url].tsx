@@ -43,7 +43,7 @@ const Project = () => {
               height={420}
               className={styles.image}
               onClick={() => {
-                if (i === data.images.length - 1) {
+                if (i >= data.images.length - 1) {
                   setI(0);
                 } else {
                   setI(i + 1);

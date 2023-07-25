@@ -1,4 +1,6 @@
 {
 	"name": "경일중학교",
-	"thumbnail": "0.jpg"
+	"thumbnail": "0.jpg",
+	"num": 11,
+	"extension": "jpg"
 }

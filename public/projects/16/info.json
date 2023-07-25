@@ -1,4 +1,6 @@
 {
 	"name": "덕원중학교",
-	"thumbnail": "0.jpg"
+	"thumbnail": "0.jpg",
+	"num": 8,
+	"extension": "jpg"
 }

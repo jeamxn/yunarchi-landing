@@ -1,4 +1,6 @@
 {
 	"name": "온천동성당",
-	"thumbnail": "0.jpg"
+	"thumbnail": "0.jpg",
+	"num": 5,
+	"extension": "jpg"
 }

@@ -17,7 +17,6 @@
     "cookie": "^0.5.0",
     "eslint": "^8.45.0",
     "eslint-config-next": "13.4.12",
-    "fs": "^0.0.1-security",
     "mongodb": "^5.7.0",
     "next": "13.4.12",
     "react": "18.2.0",

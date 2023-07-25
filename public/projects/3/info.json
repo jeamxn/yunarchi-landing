@@ -1,4 +1,6 @@
 {
 	"name": "beenzip",
-	"thumbnail": "0.jpg"
+	"thumbnail": "0.jpg",
+	"num": 19,
+	"extension": "jpg"
 }

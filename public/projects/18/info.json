@@ -1,4 +1,6 @@
 {
 	"name": "구포중학교",
-	"thumbnail": "0.jpg"
+	"thumbnail": "0.jpg",
+	"num": 7,
+	"extension": "jpg"
 }

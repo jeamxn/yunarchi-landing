@@ -1,4 +1,6 @@
 {
 	"name": "중앙동 업무시설",
-	"thumbnail": "0.jpg"
+	"thumbnail": "0.jpg",
+	"num": 4,
+	"extension": "jpg"
 }
