@@ -3,7 +3,6 @@ import React from "react";
 import { Container as MapDiv, NaverMap, Marker, useNavermaps, NavermapsProvider } from "react-naver-maps";
 
 const Map = () => {
-  const navermaps = useNavermaps();
   return (
     <NavermapsProvider
       ncpClientId="4oiw88adxd"
