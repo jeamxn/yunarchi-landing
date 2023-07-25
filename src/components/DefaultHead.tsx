@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import Head from "next/head";
 import React from "react";
 

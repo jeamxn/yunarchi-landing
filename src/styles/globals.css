@@ -17,6 +17,9 @@
   -webkit-tap-highlight-color : transparent;
   word-break: keep-all;
   font-family: L;
+
+  outline: none;
+  border: none;
 }
 html,
 body {
