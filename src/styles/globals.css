@@ -1,0 +1,72 @@
+@font-face {
+  font-family: "L";
+  src: url(ttf/08SeoulHangangL.ttf);
+}
+@font-face {
+  font-family: "M";
+  src: url(ttf/08SeoulHangangL.ttf);
+}
+:root{
+  --color-main: 70, 77, 153;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color : transparent;
+  word-break: keep-all;
+  font-family: L;
+
+  outline: none;
+  border: none;
+}
+html,
+body {
+  position: fixed !important;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: rgba(var(--color-0), 0.4);
+  color: rgba(var(--color-primary), 1);
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+#__next{
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  border-top: 0;
+  border-bottom: 0;
+}
+main{
+  flex: 1;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+div {
+  user-select: none;
+}
+
+input, textarea, button, select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  outline: none;
+  border: none;
+}
+
+.main {
+	margin-bottom: 40px;
+}
