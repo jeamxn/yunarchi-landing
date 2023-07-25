@@ -63,3 +63,7 @@ input, textarea, button, select {
   outline: none;
   border: none;
 }
+
+.main {
+	margin-bottom: 40px;
+}

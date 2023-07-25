@@ -1,0 +1,22 @@
+.container{
+	padding: 0 50px;
+	text-align: center;
+	line-height: 0;
+}
+
+.thumbnailBox{
+	display: inline-block;
+	width: 300px;
+	height: 200px;
+	margin: 2px;
+	padding: 0;
+}
+.thumbnail{
+	object-fit: cover;
+	filter: grayscale(100%);
+	cursor: pointer;
+	transition: filter .3s ease-in-out;
+}
+.thumbnail:hover{
+	filter: grayscale(0%);
+}

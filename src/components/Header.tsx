@@ -12,7 +12,7 @@ const menus = [
   },
   {
     name: "PROJECTS",
-    link: "/"
+    link: "/projects"
   },
   {
     name: "CONTACT",
@@ -23,13 +23,19 @@ const menus = [
 const Header = () => {
   const [menu, setMenu] = useRecoilState(menuAtom);
   const router = useRouter();
+
+  React.useEffect(() => {
+    const { pathname } = router;
+    const menu = menus.findIndex(m => m.link === `/${pathname.split("/")[1]}`);
+    setMenu(menu);
+  }, []);
+
   return (
     <div className={styles.header}>
       <div 
         className={styles.titleBox} 
         onClick={() => {
-          setMenu(1);
-          router.push("/");
+          router.push(menus[1].link);
         }}
       >
         <div className={styles.title1}>D.G. YUN-ARCHITECTS</div>
@@ -42,7 +48,6 @@ const Header = () => {
               key={i}
               className={styles.menuItem}
               onClick={() => {
-                setMenu(i);
                 router.push(m.link);
               }}
               style={{
