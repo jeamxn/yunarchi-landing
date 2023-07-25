@@ -1,44 +1,34 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-// import { readFileSync, readdirSync } from "fs";
-
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  [key: string]: {
-    info: string,
-    images: string[]
-  }
+import { Data } from "@/utils/types";
+
+type Response = {
+  [key: string]: Data;
 };
 
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Response>
 ) => {
-  const returnData: Data = {};
-  // const list = readdirSync"./public/projects").sort();
-  // console.log(list);
-  const number = 22;
+  const response: Response = {};
+  const number = (await import("../../../public/projects/info.json")).num;
   const list = [];
   for(let i = 1; i <= number; i++) {
     list.push(i);
   }
   for(const dir of list) {
-    // const dirList = readdirSync(`./public/projects/${dir}`).sort();
-    // dirList.splice(dirList.indexOf("info.json"), 1);
     const info = await import(`../../../public/projects/${dir}/info.json`);
     const dirList = [];
     for(let i = 0; i <= info.num; i++) {
       dirList.push(`${i}.${info.extension}`);
     }
-    returnData[dir] = {
-      info: "",
-      images: []
+    response[dir] = {
+      info: info,
+      images: dirList
     };
-    returnData[dir].info = info;
-    returnData[dir].images = dirList;
   }
 
-  res.status(200).json(returnData);
+  res.status(200).json(response);
 };
 
 export default handler;
