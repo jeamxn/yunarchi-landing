@@ -3,20 +3,36 @@
 	text-align: center;
 	line-height: 0;
 }
-
 .thumbnailBox{
 	display: inline-block;
 	width: 300px;
 	height: 200px;
 	margin: 2px;
 	padding: 0;
+
+	background: linear-gradient(-45deg, #eee, #fff, #eee);
+  background-size: 400% 400%;
+  animation: gradient 2s ease infinite;
 }
 .thumbnail{
+	opacity: 0;
 	object-fit: cover;
 	filter: grayscale(100%);
 	cursor: pointer;
-	transition: filter .3s ease-in-out;
+	transition: filter .3s ease-in-out, background 0.3s ease, opacity 0.3s ease;
 }
 .thumbnail:hover{
 	filter: grayscale(0%);
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

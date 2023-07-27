@@ -53,6 +53,10 @@ const Home = () => {
                     width={300}
                     height={200}
                     className={styles.thumbnail}
+                    onLoadingComplete={(e) => {
+                      e.style.background = "#fff";
+                      e.style.opacity = "1";
+                    }}
                   />
                 </div>
               );
