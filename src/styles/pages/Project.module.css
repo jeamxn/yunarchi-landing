@@ -4,13 +4,37 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 7px;
+	gap: 10px;
 }
-
 .image{
 	object-fit: contain;
 	cursor: pointer;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+	transition: background 0.3s ease, opacity 0.3s ease;
 }
 .infoName{
 	font-size: 17px;
+	color: rgba(var(--color-main), 1);
+}
+.imageBox{
+	line-height: 0;	
+	text-align: center;
+}
+.imageCover{
+  background: linear-gradient(-45deg, #eee, #fff, #eee);
+  background-size: 400% 400%;
+  animation: gradient 2s ease infinite;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

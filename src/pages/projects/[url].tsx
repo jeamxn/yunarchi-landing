@@ -27,6 +27,12 @@ const Project = () => {
     getData();
   }, [url]);
 
+  React.useEffect(() => {
+    if (data && i > data.images.length - 1) {
+      setI(0);
+    }
+  }, [i]);
+
   return data && (
     <>
       <DefaultHead>
@@ -36,20 +42,27 @@ const Project = () => {
         <Header />
         <div className={styles.container}>
           <div className={styles.imageBox}>
-            <Image
-              src={`/projects/${url}/${data.images[i]}`}
-              alt="project image"
-              width={630}
-              height={420}
-              className={styles.image}
-              onClick={() => {
-                if (i >= data.images.length - 1) {
-                  setI(0);
-                } else {
-                  setI(i + 1);
-                }
-              }}
-            />
+            {
+              data.images.length > 1 && data.images.map((image, index) => (
+                <div key={index} className={styles.imageCover}>
+                  <Image
+                    alt="project image"
+                    src={`/projects/${url}/${image}`}
+                    width={630}
+                    height={420}
+                    className={styles.image}
+                    style={{ 
+                      display: i === index ? "block" : "none",
+                    }}
+                    onClick={() => setI(i + 1)}
+                    onLoadingComplete={(e) => {
+                      e.style.background = "#fff";
+                      e.style.opacity = "1";
+                    }}
+                  />
+                </div>
+              ))
+            }
           </div>
           <div className={styles.infoName}>{data.info.name}</div>
         </div>
