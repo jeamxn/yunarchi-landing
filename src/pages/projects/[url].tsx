@@ -12,6 +12,7 @@ const Project = () => {
   const router = useRouter();
   const { url } = router.query as {url: string};
   const [data, setData] = React.useState<Data | null>(null);
+  const [display, setDisplay] = React.useState<"block" | "none">("block");
   const [i, setI] = React.useState(0);
 
   const getData = async () => {
@@ -21,6 +22,7 @@ const Project = () => {
       }
     } = await axios.get("/api/list");
     setData(data[url]);
+    setDisplay("none");
   };
 
   React.useEffect(() => {
@@ -52,7 +54,7 @@ const Project = () => {
                     height={420}
                     className={styles.image}
                     style={{ 
-                      display: i === index ? "block" : "none",
+                      display: i === index ? "block" : display,
                     }}
                     onClick={() => setI(i + 1)}
                     onLoadingComplete={(e) => {
