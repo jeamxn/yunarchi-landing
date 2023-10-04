@@ -9,26 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/cookie": "^0.5.1",
-    "@types/node": "20.4.4",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "18.2.7",
-    "axios": "^1.4.0",
+    "@types/cookie": "^0.5.2",
+    "axios": "^1.5.1",
     "cookie": "^0.5.0",
-    "eslint": "^8.45.0",
-    "eslint-config-next": "13.4.12",
-    "mongodb": "^5.7.0",
-    "next": "13.4.12",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "mongodb": "^6.1.0",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
     "react-naver-maps": "^0.1.2",
-    "recoil": "^0.7.7",
-    "typescript": "5.1.6"
+    "recoil": "^0.7.7"
   },
-  "packageManager": "yarn@1.22.19",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.2.0",
-    "@typescript-eslint/parser": "^6.2.0",
-    "eslint-plugin-react": "^7.33.0"
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "typescript": "latest"
   }
 }
