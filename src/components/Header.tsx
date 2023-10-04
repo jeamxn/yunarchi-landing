@@ -1,4 +1,6 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { useRecoilState } from "recoil";
 
@@ -22,13 +24,13 @@ const menus = [
 
 const Header = () => {
   const [menu, setMenu] = useRecoilState(menuAtom);
+  const pathname = usePathname();
   const router = useRouter();
 
   React.useEffect(() => {
-    const { pathname } = router;
     const menu = menus.findIndex(m => m.link === `/${pathname.split("/")[1]}`);
     setMenu(menu);
-  }, []);
+  }, [pathname]);
 
   return (
     <div className={styles.header}>

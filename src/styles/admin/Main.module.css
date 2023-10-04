@@ -1,0 +1,183 @@
+.main{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 40px;
+	padding-top: 50px;
+}
+.title{
+	font-size: 28px;
+	font-weight: 600;
+	color: rgba(var(--color-main), 1);
+	padding-bottom: 10px;
+}
+.vox{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+.innerTitle{
+	font-size: 20px;
+	font-weight: 600;
+	color: rgba(var(--color-main), 1);
+	padding-bottom: 10px;
+}
+
+.table{
+	border-collapse: collapse;
+	border-spacing: 0;
+	border-radius: 10px;
+	width: calc(100% - 30px);
+	max-width: 700px;
+}
+
+.tableDiv{
+	width: 100%;
+	border-radius: 5px;
+	margin-bottom: 5px;
+	overflow-x: auto;
+	border: 1px solid rgba(var(--color-main), .1);
+}
+
+.table > thead > tr {
+	border: .5px solid rgba(var(--color-main), .1);
+	border-left: 0;
+	border-right: 0;
+}
+.table > thead > tr > th{
+	padding: 10px 20px;
+	background-color: rgba(var(--color-main), .075);
+}
+
+.table > tbody > tr {
+	border: .5px solid rgba(var(--color-main), .1);
+	border-left: 0;
+	border-right: 0;
+}
+.tableText{
+	padding: 10px 20px;
+	text-align: center;
+}
+.tableButton{
+	text-align: center;
+	font-weight: 600;
+	padding: 10px 10px;
+	transition: opacity 0.1s ease-in-out, color 0.1s ease-in-out;
+	cursor: pointer;
+}
+.minCell{
+	width: 1px;
+}
+.tableButton:hover {
+	color: rgba(var(--color-main), 1);
+}
+.tableButton:active {
+	opacity: 0.3;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fff;
+  
+}
+.inner{
+  width: calc(100% - 30px);
+  max-width: 700px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+  
+  padding: 20px;
+
+	margin-top: 30px;
+}
+
+.prevSub {
+	width: 300px;
+	height: 200px;
+	border: 1px solid rgba(var(--color-main), .1);
+	border-radius: 5px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	object-fit: cover;
+}
+
+.savebutton {
+	width: calc(100% - 30px);
+	max-width: 400px;
+}
+
+.buttons{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.input{
+	width: 100%;
+	border-radius: 5px;
+	border: 1px solid rgba(var(--color-main), .1);
+	padding: 10px 10px;
+	font-size: 15px;
+	font-weight: 600;
+	background-color: rgba(var(--color-white), 1);
+}
+.button{
+	width: 100%;
+	border-radius: 5px;
+	border: 1px solid rgba(var(--color-main), .1);
+	padding: 10px 10px;
+	font-size: 15px;
+	font-weight: 600;
+	background-color: rgba(var(--color-main), 1);
+	color: rgba(var(--color-0), 1);
+	text-align: center;
+	cursor: pointer;
+
+	transition: opacity .2s ease-in-out;
+}
+.button1{
+	width: 100%;
+	border-radius: 5px;
+	border: 1px solid rgba(var(--color-main), .1);
+	padding: 10px 10px;
+	font-size: 15px;
+	font-weight: 600;
+	background-color: rgba(var(--color-main), .01);
+	color: rgba(var(--color-main), 1);
+	text-align: center;
+	cursor: pointer;
+
+	transition: opacity .2s ease-in-out;
+}
+
+.images{
+	width: 100%;
+	overflow: auto;
+	border-radius: 5px;
+}
+.imagesInner{
+	width: max-content;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 10px;
+}
