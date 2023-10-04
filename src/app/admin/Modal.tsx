@@ -1,4 +1,4 @@
-import type { BodyData } from "@/app/api/add/route";
+import type { BodyData } from "@/app/api/edit/route";
 
 import axios from "axios";
 import Image from "next/image";
@@ -41,7 +41,7 @@ const Modal = ({
     if(!confirm("추가하시겠습니까?")) return;
     const { data: res } = await axios({
       method: "POST",
-      url: "/api/add",
+      url: "/api/edit",
       data
     });
     if(res.error) return alert("추가에 실패했습니다.");
@@ -52,7 +52,7 @@ const Modal = ({
   return show ? (
     <div className={styles.modal}>
       <div className={styles.inner}>
-        <div className={styles.title}>새 프로젝트 추가하기</div>
+        <div className={styles.title}>프로젝트 추가/수정하기</div>
         
         <div className={styles.vox}>
           <div className={styles.innerTitle}>프로젝트 이름</div>
@@ -138,13 +138,16 @@ const Modal = ({
         <div className={styles.buttons}>
           <input 
             type="button"
-            value="닫기"
+            value="취소하기"
             className={styles.button1}
-            onClick={() => setShow(false)}
+            onClick={() => {
+              if(!confirm("취소하시겠습니까?")) return;
+              setShow(false);
+            }}
           />
           <input 
             type="button"
-            value="추가하기"
+            value="저장하기"
             className={styles.button}
             onClick={close}
           />

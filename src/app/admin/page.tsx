@@ -33,7 +33,7 @@ const Page = () => {
       <div className={styles.title}>관리자 페이지</div>
       {
         token ? (
-          <Important token={token} />
+          <Important />
         ) : (
           <KakaoLogin
             token={process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_API_KEY as string}

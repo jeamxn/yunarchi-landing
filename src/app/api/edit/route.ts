@@ -10,6 +10,8 @@ export type BodyData = {
   subImages: string[];
 }
 
+export const adminList = JSON.parse(process.env.ADMIN_NUM || "[]");
+
 export const POST = async (request: NextRequest) => {
   const accessToken = request.cookies.get("access_token")?.value;
   const { data: tokenInfo } = await axios({
@@ -19,12 +21,15 @@ export const POST = async (request: NextRequest) => {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  if(!tokenInfo.id) {
+  if(!tokenInfo.id || !adminList.includes(tokenInfo.id)) {
     return Response.json({ error: true, message: "token failed" });
   }
 
   //body 내용 가져오기
   const body: BodyData = await request.json();
+  if(!body.title || !body.thumbnail || !body.subImages) {
+    return Response.json({ error: true, message: "invalid body" });
+  }
 
   const client = await connectToDatabase();
   const collection = await client.db().collection("data");
@@ -38,4 +43,29 @@ export const POST = async (request: NextRequest) => {
   });
 
   return Response.json({ error: false, tokenInfo: tokenInfo.id, body });
+};
+
+export const DELETE = async (request: NextRequest) => {
+  const accessToken = request.cookies.get("access_token")?.value;
+  const { data: tokenInfo } = await axios({
+    method: "get",
+    url: "https://kapi.kakao.com/v2/user/me",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if(!tokenInfo.id || !adminList.includes(tokenInfo.id)) {
+    return Response.json({ error: true, message: "token failed" });
+  }
+
+  const { id } = await request.json();
+  if(!id) {
+    return Response.json({ error: true, message: "invalid body" });
+  }
+
+  const client = await connectToDatabase();
+  const collection = await client.db().collection("data");
+  await collection.deleteOne({ id });
+
+  return Response.json({ error: false });
 };
