@@ -4,7 +4,7 @@
 }
 @font-face {
   font-family: "M";
-  src: url(ttf/08SeoulHangangL.ttf);
+  src: url(ttf/08SeoulHangangM.ttf);
 }
 :root{
   --color-main: 70, 77, 153;

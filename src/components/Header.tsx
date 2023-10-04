@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import styles from "@/styles/components/Header.module.css";
 import { menuAtom } from "@/utils/states";
 
-const prevMenus = [
+const menus = [
   {
     name: "ABOUT",
     link: "/about"
@@ -22,19 +22,7 @@ const prevMenus = [
   }
 ];
 
-const Header = ({
-  isAdmin
-}: {
-  isAdmin?: boolean;
-}) => {
-  const menus = isAdmin ? [
-    ...prevMenus,
-    {
-      name: "ADMIN",
-      link: "/admin"
-    }
-  ] : prevMenus;
-
+const Header = () => {
   const [menu, setMenu] = useRecoilState(menuAtom);
   const pathname = usePathname();
   const router = useRouter();

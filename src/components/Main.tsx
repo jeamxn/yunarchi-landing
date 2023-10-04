@@ -14,6 +14,9 @@ const Main = (
   },
 ) => (
   <RecoilRoot>
+    {
+      !props.isAdmin && <Header />
+    }
     <main
       {...props}
       className={[
@@ -21,13 +24,6 @@ const Main = (
         props.className
       ].join(" ")}
     >
-      {
-        props.isAdmin ? (
-          <Header isAdmin={true}/>
-        ) : (
-          <Header isAdmin={false}/>
-        )
-      }
       {props.children}
     </main>
   </RecoilRoot>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import "@/styles/globals.css";
+import "@/styles/globals-admin.css";
 
 export const metadata: Metadata = {
   title: "Admin Page :: YUN Architects",
