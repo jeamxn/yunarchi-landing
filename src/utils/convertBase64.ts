@@ -1,17 +1,27 @@
+import imageCompression from "browser-image-compression";
+
 const convertBase64 = (
-  file: File | Blob
+  file: File
 ): Promise<string | ArrayBuffer | null> => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
 
-    fileReader.onload = () => {
-      resolve(fileReader.result);
+    const options = {
+      maxSizeMB: 0.1,
+      useWebWorker: true,
     };
+    
+    imageCompression(file, options).then((compressedFile) => {
+      fileReader.readAsDataURL(compressedFile);
 
-    fileReader.onerror = (error) => {
-      reject(error);
-    };
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+  
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
   });
 };
 

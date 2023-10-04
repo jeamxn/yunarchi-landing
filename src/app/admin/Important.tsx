@@ -3,21 +3,30 @@ import type { ResponseData } from "@/app/api/list/route";
 import axios from "axios";
 import React from "react";
 
+import Loading from "@/components/LoadingSpinner";
 import styles from "@/styles/admin/Main.module.css";
 
 import Item from "./Item";
 import Modal from "./Modal";
 
 const Important = () => {
+  const [loading, setLoading] = React.useState(false);
   const [projects, setProjects] = React.useState<ResponseData[]>([]);
   const [showModal, setShowModal] = React.useState(false);
 
   const init = async () => {
-    const { data } = await axios({
-      method: "GET",
-      url: "/api/list",
-    });
-    setProjects(data.data);
+    setLoading(true);
+    try{
+      const { data } = await axios({
+        method: "GET",
+        url: "/api/list",
+      });
+      setProjects(data.data);
+    }
+    catch {
+      alert("데이터를 불러오는데 실패했습니다.");
+    }
+    setLoading(false);
   };
 
   React.useEffect(() => {
@@ -27,20 +36,24 @@ const Important = () => {
   }, [showModal]);
 
   const save = async () => {
-    const { data } = await axios({
-      method: "POST",
-      url: "/api/list",
-      data: projects,
-    });
-    if(data.error) {
-      alert("저장에 실패했습니다.");
-      return;
+    setLoading(true);
+    try{
+      const { data } = await axios({
+        method: "POST",
+        url: "/api/list",
+        data: projects,
+      });
+      alert(data.error ? "저장에 실패했습니다." : "저장되었습니다.");
     }
-    alert("저장되었습니다.");
+    catch {
+      alert("저장에 실패했습니다.");
+    }
+    setLoading(false);
   };
 
   return (
     <>
+      <Loading show={loading}/>
       <table className={styles.table}>
         <thead>
           <tr>

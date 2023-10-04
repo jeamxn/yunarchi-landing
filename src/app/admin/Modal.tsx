@@ -4,6 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import React from "react";
 
+import Loading from "@/components/LoadingSpinner";
 import styles from "@/styles/admin/Main.module.css";
 import convertBase64 from "@/utils/convertBase64";
 
@@ -19,6 +20,7 @@ const Modal = ({
 }: {
   states: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }) => {
+  const [loading, setLoading] = React.useState(false);
   const [show, setShow] = states;
 
   const [data, setData] = React.useState(initData);
@@ -39,20 +41,29 @@ const Modal = ({
     if(!data.thumbnail) return alert("썸네일을 선택해주세요.");
     if(!data.subImages.length) return alert("세부 사진을 선택해주세요.");
     if(!confirm("추가하시겠습니까?")) return;
-    const { data: res } = await axios({
-      method: "POST",
-      url: "/api/edit",
-      data
-    });
-    if(res.error) return alert("추가에 실패했습니다.");
-    alert("추가되었습니다.");
-    setShow(false);
+    setLoading(true);
+    try{
+      const { data: res } = await axios({
+        method: "POST",
+        url: "/api/edit",
+        data
+      });
+      if(res.error) alert("추가에 실패했습니다.");
+      else {
+        alert("추가되었습니다.");
+        setShow(false);
+      }
+    } catch {
+      alert("추가에 실패했습니다.");
+    }
+    setLoading(false);
   };
 
   return show ? (
     <div className={styles.modal}>
+      <Loading show={loading} />
       <div className={styles.inner}>
-        <div className={styles.title}>프로젝트 추가/수정하기</div>
+        <div className={styles.title}>프로젝트 추가하기</div>
         
         <div className={styles.vox}>
           <div className={styles.innerTitle}>프로젝트 이름</div>
@@ -83,7 +94,9 @@ const Modal = ({
             onChange={async (e) => {
               setThumbnailUrl(e.target.value);
               if(!e.target.files) return;
+              setLoading(true);
               const base64 = await convertBase64(e.target.files[0]) as string;
+              setLoading(false);
               setData({
                 ...data,
                 thumbnail: base64
@@ -118,11 +131,13 @@ const Modal = ({
             onChange={async (e) => {
               setSubImages(e.target.value);
               if(!e.target.files) return;
+              setLoading(true);
               const subImages = await Promise.all(
                 Array
                   .from(e.target.files)
                   .map(async (file) => await convertBase64(file) as string)
               );
+              setLoading(false);
               setData({
                 ...data,
                 subImages: subImages
