@@ -5,22 +5,51 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
+import { ResponseData } from "@/app/api/list/route";
 import { Main } from "@/components";
 import styles from "@/styles/pages/Projects.module.css";
-
-import { ResponseData } from "../api/main/route";
 
 const Page = () => {
   const router = useRouter();
 
+  const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<ResponseData[]>([]);
 
   const init = async () => {
+    setLoading(true);
     const { data: res } = await axios({
       method: "GET",
-      url: "/api/main",
+      url: "/api/list",
     });
-    setData(res.data);
+    const datac = res.data as ResponseData[];
+    
+    const promises = [];
+    for (const e of datac) {
+      promises.push(
+        axios({
+          method: "POST",
+          url: "/api/thumbnail",
+          data: {
+            id: e.id,
+          }
+        })
+      );
+    }
+    const ress = await Promise.all(promises);
+    for(let i = 0; i < ress.length; i++) {
+      const e = ress[i];
+      const { data: res } = e;
+      const { thumbnail } = res;
+      
+      for (const e of datac) {
+        if (e.id === i + 1) {
+          e.thumbnail = thumbnail;
+          break;
+        }
+      }
+    }
+    setData(datac);
+    setLoading(false);
   };
 
   React.useEffect(() => {
@@ -41,13 +70,13 @@ const Page = () => {
             >
               <Image
                 src={e.thumbnail}
-                alt="project image"
+                alt=""
                 width={300}
                 height={200}
                 className={styles.thumbnail}
-                onLoadingComplete={(e) => {
-                  e.style.background = "#fff";
-                  e.style.opacity = "1";
+                style={{
+                  background: loading ? "" : "#fff",
+                  opacity: loading ? "" : "1",
                 }}
               />
             </div>

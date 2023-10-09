@@ -8,13 +8,17 @@ export type ResponseData = {
   id: number;
   order: number;
   title: string;
+  thumbnail: string;
 };
 
 export const GET = async () => {
   const client = await connectToDatabase();
   const collection = await client.db().collection("data");
-  const data = await collection.find({}, { projection: { _id: 0, id: 1, title: 1, order: 1 } }).toArray();
-  return Response.json({ error: false, data });
+  const data: ResponseData[] = await collection.find({}, { projection: { _id: 0, id: 1, title: 1, order: 1 } }).toArray();
+  return Response.json({ 
+    error: false, 
+    data: data.map((item) => ({ ...item, thumbnail: "" })),
+  });
 };
 
 export const POST = async (request: NextRequest) => {
@@ -31,14 +35,11 @@ export const POST = async (request: NextRequest) => {
   }
 
   const body: ResponseData[] = await request.json();
-
   const client = await connectToDatabase();
   const collection = await client.db().collection("data");
-  
   for(let i = 0; i < body.length; i++) {
     const { id, order } = body[i];
     await collection.updateOne({ id }, { $set: { order } });
   }
-
   return Response.json({ error: false, body });
 };
