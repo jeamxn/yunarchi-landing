@@ -4,13 +4,6 @@ import { NextRequest } from "next/server";
 import { adminList } from "@/app/api/edit/route";
 import { connectToDatabase } from "@/utils/db";
 
-
-export type BodyData = {
-  title: string;
-  thumbnail: string;
-  subImages: string[];
-}
-
 export type ResponseData = {
   id: number;
   order: number;

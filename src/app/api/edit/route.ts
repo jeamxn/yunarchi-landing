@@ -4,12 +4,6 @@ import axios from "axios";
 
 import { connectToDatabase } from "@/utils/db";
 
-export type BodyData = {
-  title: string;
-  thumbnail: string;
-  subImages: string[];
-}
-
 export const adminList = JSON.parse(process.env.ADMIN_NUM || "[]");
 
 export const POST = async (request: NextRequest) => {
@@ -26,8 +20,8 @@ export const POST = async (request: NextRequest) => {
   }
 
   //body 내용 가져오기
-  const body: BodyData = await request.json();
-  if(!body.title || !body.thumbnail || !body.subImages) {
+  const body = await request.json();
+  if(!body.title) {
     return Response.json({ error: true, message: "invalid body" });
   }
 
@@ -38,11 +32,45 @@ export const POST = async (request: NextRequest) => {
     id: count + 1,
     order: count + 1,
     title: body.title,
-    thumbnail: body.thumbnail,
-    subImages: body.subImages,
+    thumbnail: "",
+    subImages: [],
   });
 
-  return Response.json({ error: false, tokenInfo: tokenInfo.id, body });
+  return Response.json({ error: false, tokenInfo: tokenInfo.id, id: count + 1 });
+};
+
+export const PUT = async (request: NextRequest) => {
+  const accessToken = request.cookies.get("access_token")?.value;
+  const { data: tokenInfo } = await axios({
+    method: "get",
+    url: "https://kapi.kakao.com/v2/user/me",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if(!tokenInfo.id || !adminList.includes(tokenInfo.id)) {
+    return Response.json({ error: true, message: "token failed" });
+  }
+
+  const body = await request.json();
+  if(!body.image || !body.type || !body.id) {
+    return Response.json({ error: true, message: "invalid body" });
+  }
+  if(body.type !== "thumbnail" && body.type !== "subImage") {
+    return Response.json({ error: true, message: "invalid type" });
+  }
+
+  const client = await connectToDatabase();
+  const collection = await client.db().collection("data");
+  const { id } = body;
+  if(body.type === "thumbnail") {
+    await collection.updateOne({ id }, { $set: { thumbnail: body.image } });
+  }
+  else {
+    await collection.updateOne({ id }, { $push: { subImages: body.image } });
+  }
+
+  return Response.json({ error: false });
 };
 
 export const DELETE = async (request: NextRequest) => {

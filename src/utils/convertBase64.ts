@@ -7,7 +7,7 @@ const convertBase64 = (
     const fileReader = new FileReader();
 
     const options = {
-      maxSizeMB: 0.1,
+      maxSizeMB: 0.01,
       useWebWorker: true,
     };
     

@@ -1,5 +1,3 @@
-import type { BodyData } from "@/app/api/edit/route";
-
 import axios from "axios";
 import Image from "next/image";
 import React from "react";
@@ -9,10 +7,10 @@ import styles from "@/styles/admin/Main.module.css";
 import convertBase64 from "@/utils/convertBase64";
 
 
-const initData: BodyData = {
+const initData = {
   title: "",
   thumbnail: "",
-  subImages: []
+  subImages: [] as string[]
 };
 
 const Modal = ({
@@ -46,8 +44,38 @@ const Modal = ({
       const { data: res } = await axios({
         method: "POST",
         url: "/api/edit",
-        data
+        data: {
+          title: data.title,
+          thumbnail: "",
+          subImages: [],
+        }
       });
+      const { id } = res;
+      const promises = [
+        axios({
+          method: "PUT",
+          url: "/api/edit",
+          data: {
+            id,
+            type: "thumbnail",
+            image: data.thumbnail,
+          }
+        }),
+      ];
+      data.subImages.forEach((subImage) => {
+        promises.push(
+          axios({
+            method: "PUT",
+            url: "/api/edit",
+            data: {
+              id,
+              type: "subImage",
+              image: subImage,
+            }
+          })
+        );
+      });
+      await Promise.all(promises);
       if(res.error) alert("추가에 실패했습니다.");
       else {
         alert("추가되었습니다.");
