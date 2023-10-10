@@ -62,13 +62,13 @@ export const PUT = async (request: NextRequest) => {
 
   const client = await connectToDatabase();
   const collection = await client.db().collection("data");
-  const { id } = body;
-  if(body.type === "thumbnail") {
-    await collection.updateOne({ id }, { $set: { thumbnail: body.image } });
-  }
-  else {
-    await collection.updateOne({ id }, { $push: { subImages: body.image } });
-  }
+  const { id, image } = body;
+
+  const query = body.type === "thumbnail" ? 
+    { $set: { thumbnail: image } } : 
+    { $pull: { subImages: image } };
+  
+  await collection.updateOne({ id }, query);
 
   return Response.json({ error: false });
 };

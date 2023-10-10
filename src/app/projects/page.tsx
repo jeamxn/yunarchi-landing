@@ -12,16 +12,15 @@ import styles from "@/styles/pages/Projects.module.css";
 const Page = () => {
   const router = useRouter();
 
-  const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<ResponseData[]>([]);
 
   const init = async () => {
-    setLoading(true);
     const { data: res } = await axios({
       method: "GET",
       url: "/api/list",
     });
     const datac = res.data as ResponseData[];
+    setData(datac);
     
     const promises = [];
     for (const e of datac) {
@@ -49,7 +48,6 @@ const Page = () => {
       }
     }
     setData(datac);
-    setLoading(false);
   };
 
   React.useEffect(() => {
@@ -75,8 +73,8 @@ const Page = () => {
                 height={200}
                 className={styles.thumbnail}
                 style={{
-                  background: loading ? "" : "#fff",
-                  opacity: loading ? "" : "1",
+                  background: e.thumbnail ? "#fff" : "",
+                  opacity: e.thumbnail ? "1" : "",
                 }}
               />
             </div>
