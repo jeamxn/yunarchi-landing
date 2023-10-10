@@ -43,11 +43,11 @@ const Page = () => {
       for (const e of datac) {
         if (e.id === i + 1) {
           e.thumbnail = thumbnail;
+          setData(datac);
           break;
         }
       }
     }
-    setData(datac);
   };
 
   React.useEffect(() => {
