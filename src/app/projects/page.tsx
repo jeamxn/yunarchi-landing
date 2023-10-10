@@ -48,6 +48,8 @@ const Page = () => {
         }
       }
     }
+
+    setData(datac);
   };
 
   React.useEffect(() => {
