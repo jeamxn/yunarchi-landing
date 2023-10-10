@@ -11,16 +11,14 @@ import styles from "@/styles/pages/Projects.module.css";
 
 const Page = () => {
   const router = useRouter();
-
   const [data, setData] = React.useState<ResponseData[]>([]);
-
   const init = async () => {
     const { data: res } = await axios({
       method: "GET",
       url: "/api/list",
     });
     const datac = res.data as ResponseData[];
-    setData(datac);
+    setData([...datac]);
     
     const promises = [];
     for (const e of datac) {
@@ -34,6 +32,7 @@ const Page = () => {
         })
       );
     }
+    
     const ress = await Promise.all(promises);
     for(let i = 0; i < ress.length; i++) {
       const e = ress[i];
@@ -46,10 +45,10 @@ const Page = () => {
           break;
         }
       }
-      setData(datac);
+      setData([...datac]);
     }
 
-    setData(datac);
+    setData([...datac]);
   };
 
   React.useEffect(() => {
