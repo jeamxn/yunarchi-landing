@@ -23,32 +23,22 @@ const Page = () => {
     const promises = [];
     for (const e of datac) {
       promises.push(
-        axios({
-          method: "POST",
-          url: "/api/thumbnail",
-          data: {
-            id: e.id,
-          }
+        new Promise((resolve) => {
+          axios({
+            method: "POST",
+            url: "/api/thumbnail",
+            data: {
+              id: e.id,
+            }
+          }).then(({ data: { thumbnail } }) => {
+            e.thumbnail = thumbnail;
+            resolve(setData([...datac]));
+          });
         })
       );
     }
-    
-    const ress = await Promise.all(promises);
-    for(let i = 0; i < ress.length; i++) {
-      const e = ress[i];
-      const { data: res } = e;
-      const { thumbnail } = res;
-      
-      for (const e of datac) {
-        if (e.id === i + 1) {
-          e.thumbnail = thumbnail;
-          break;
-        }
-      }
-      setData([...datac]);
-    }
-
-    setData([...datac]);
+    console.log(promises);
+    await Promise.all(promises);
   };
 
   React.useEffect(() => {
