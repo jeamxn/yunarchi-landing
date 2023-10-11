@@ -26,12 +26,12 @@ const Page = () => {
         new Promise((resolve) => {
           axios({
             method: "POST",
-            url: "/api/thumbnail",
+            url: "/api/image",
             data: {
-              id: e.id,
+              id: e.thumbnailObjectId,
             }
-          }).then(({ data: { thumbnail } }) => {
-            e.thumbnail = thumbnail;
+          }).then(({ data: { image } }) => {
+            e.thumbnail = image;
             resolve(setData([...datac]));
           });
         })

@@ -9,15 +9,20 @@ export type ResponseData = {
   order: number;
   title: string;
   thumbnail: string;
+  thumbnailObjectId: string;
 };
 
 export const GET = async () => {
   const client = await connectToDatabase();
   const collection = await client.db().collection("data");
-  const data: ResponseData[] = await collection.find({}, { projection: { _id: 0, id: 1, title: 1, order: 1 } }).toArray();
+  const data: ResponseData[] = await collection.find({}, { projection: { _id: 0, id: 1, title: 1, order: 1, thumbnail: 1 } }).toArray();
   return Response.json({ 
     error: false, 
-    data: data.map((item) => ({ ...item, thumbnail: "" })),
+    data: data.map((item) => ({ 
+      ...item,
+      thumbnail: "", 
+      thumbnailObjectId: item.thumbnail
+    })),
   });
 };
 
