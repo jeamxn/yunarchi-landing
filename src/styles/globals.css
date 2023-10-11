@@ -1,10 +1,10 @@
 @font-face {
   font-family: "L";
-  src: url(ttf/08SeoulHangangL.ttf);
+  src: url(woff2/08SeoulHangangL.woff2) format("woff2");
 }
 @font-face {
   font-family: "M";
-  src: url(ttf/08SeoulHangangM.ttf);
+  src: url(woff2/08SeoulHangangM.woff2) format("woff2");
 }
 :root{
   --color-main: 70, 77, 153;
