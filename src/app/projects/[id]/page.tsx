@@ -27,6 +27,7 @@ const Page = ({ params }: {
   };
 }) => {
   const [data, setData] = React.useState(initData);
+  const [images, setImages] = React.useState<string[]>([]);
   const [i, setI] = React.useState(0);
 
   const init = async () => {
@@ -37,6 +38,27 @@ const Page = ({ params }: {
         id: params.id
       }
     });
+    setImages(new Array(res.data.subImages.length).fill(""));
+
+    const promises = [];
+    for(const [i, e] of res.data.subImages.entries()) {
+      promises.push(
+        new Promise((resolve) => {
+          axios({
+            method: "POST",
+            url: "/api/image",
+            data: {
+              id: e,
+              index: i
+            }
+          }).then(({ data: { image } }) => {
+            images[i] = image;
+            resolve(setImages([...images]));
+          });
+        })
+      );
+    }
+
     setData(res.data);
   };
 
@@ -47,21 +69,21 @@ const Page = ({ params }: {
 
   return data && (
     <Main className={styles.container}>
-      <div className={styles.imageBox}>
+      <div className={images[i] ? styles.imageBox : styles.imageCover}>
         {
-          data.subImages.length ? <Image
+          images.length ? <Image
             alt="project image"
-            src={data.subImages[i]}
+            src={images[i]}
             width={630}
             height={420}
             className={styles.image}
             onClick={() => setI((prv) => {
-              if(prv === data.subImages.length - 1) return 0;
+              if(prv === images.length - 1) return 0;
               return prv + 1;
             })}
-            onLoadingComplete={(e) => {
-              e.style.background = "#fff";
-              e.style.opacity = "1";
+            style={{
+              background: images[i] ? "#fff" : "",
+              opacity: images[i] ? "1" : "",
             }}
           /> : null
         }

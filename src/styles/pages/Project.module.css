@@ -12,6 +12,8 @@
 	margin: 0;
 	padding: 0;
 	opacity: 0;
+	width: 630px;
+	height: 420px;
 	transition: background 0.3s ease, opacity 0.3s ease;
 }
 .infoName{
@@ -19,13 +21,19 @@
 	color: rgba(var(--color-main), 1);
 }
 .imageBox{
-	line-height: 0;	
+	line-height: 0;
 	text-align: center;
+	width: 630px;
+	height: 420px;
 }
 .imageCover{
   background: linear-gradient(-45deg, #eee, #fff, #eee);
   background-size: 400% 400%;
   animation: gradient 2s ease infinite;
+	line-height: 0;
+	width: 630px;
+	height: 420px;
+	text-align: center;
 }
 @keyframes gradient {
   0% {

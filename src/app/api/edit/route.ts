@@ -61,14 +61,18 @@ export const PUT = async (request: NextRequest) => {
   }
 
   const client = await connectToDatabase();
-  const collection = await client.db().collection("data");
+  const dataCollection = await client.db().collection("data");
+  const imageCollection = await client.db().collection("images");
   const { id, image } = body;
 
+  const putImage = await imageCollection.insertOne({ image });
+  const imageId = putImage.insertedId;
+
   const query = body.type === "thumbnail" ? 
-    { $set: { thumbnail: image } } : 
-    { $pull: { subImages: image } };
+    { $set: { thumbnail: imageId } } : 
+    { $push: { subImages: imageId } };
   
-  await collection.updateOne({ id }, query);
+  await dataCollection.updateOne({ id }, query);
 
   return Response.json({ error: false });
 };
