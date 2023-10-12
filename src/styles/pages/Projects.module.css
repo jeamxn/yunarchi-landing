@@ -38,3 +38,8 @@
     background-position: 0% 50%;
   }
 }
+
+.loading{
+	font-size: 18px;
+	opacity: .3;
+}

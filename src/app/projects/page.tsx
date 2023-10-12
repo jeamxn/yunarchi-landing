@@ -48,7 +48,7 @@ const Page = () => {
   return (
     <Main className={styles.main}>
       {
-        data.map((e, i) => {
+        data.length ? data.map((e, i) => {
           return (
             <div 
               key={i}
@@ -70,7 +70,11 @@ const Page = () => {
               />
             </div>
           );
-        })
+        }) : (
+          <div className={styles.loading}>
+            Loading...
+          </div>
+        )
       }
     </Main>
   );
