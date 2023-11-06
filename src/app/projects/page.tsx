@@ -1,13 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import type { ResponseData } from "@/app/api/project/route";
+
 import axios from "axios";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import { ResponseData } from "@/app/api/list/route";
 import { Main } from "@/components";
 import styles from "@/styles/pages/Projects.module.css";
+
 
 const Page = () => {
   const router = useRouter();
@@ -15,30 +17,9 @@ const Page = () => {
   const init = async () => {
     const { data: res } = await axios({
       method: "GET",
-      url: "/api/list",
+      url: "/api/project",
     });
-    const datac = res.data as ResponseData[];
-    setData([...datac]);
-    
-    const promises = [];
-    for (const e of datac) {
-      promises.push(
-        new Promise((resolve) => {
-          axios({
-            method: "POST",
-            url: "/api/image",
-            data: {
-              id: e.thumbnailObjectId,
-            }
-          }).then(({ data: { image } }) => {
-            e.thumbnail = image;
-            resolve(setData([...datac]));
-          });
-        })
-      );
-    }
-    console.log(promises);
-    await Promise.all(promises);
+    setData(res);
   };
 
   React.useEffect(() => {
@@ -57,15 +38,20 @@ const Page = () => {
                 router.push(`/projects/${e.id}`);
               }}
             >
-              <Image
-                src={e.thumbnail}
+              <img
+                src={e.cover}
                 alt=""
                 width={300}
                 height={200}
                 className={styles.thumbnail}
-                style={{
-                  background: e.thumbnail ? "#fff" : "",
-                  opacity: e.thumbnail ? "1" : "",
+                loading="lazy"
+                onLoadStart={(e) => {
+                  e.currentTarget.style.opacity = "";
+                  e.currentTarget.style.background = "";
+                }}
+                onLoad={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                  e.currentTarget.style.background = "#fff";
                 }}
               />
             </div>
