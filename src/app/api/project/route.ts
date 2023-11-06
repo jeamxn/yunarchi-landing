@@ -1,11 +1,22 @@
-import { NextRequest } from "next/server";
+import { Client } from "@notionhq/client";
+import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-import { connectToDatabase } from "@/utils/db";
+export type ResponseData = {
+  id: string;
+  cover: string;
+};
 
-export const POST = async (request: NextRequest) => {
-  const { id } = await request.json();
-  const client = await connectToDatabase();
-  const collection = await client.db().collection("data");
-  const data = await collection.findOne({ id: Number(id) }, { projection: { _id: 0, thumbnail: 0 } });
-  return Response.json({ error: false, data });
+export const GET = async () => {
+  const notion = new Client({
+    auth: process.env.NOTION_API_KEY,
+  });
+  const databases = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE_ID_PROJECTS as string,
+  });
+  const list = (databases.results as DatabaseObjectResponse[]).map((page) => ({
+    // _origin: page,
+    id: page.id,
+    cover: page.cover && (page.cover.type === "external" ? page.cover.external.url : page.cover.file.url),
+  }));
+  return Response.json(list.reverse());
 };
