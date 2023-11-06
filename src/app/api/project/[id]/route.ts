@@ -31,5 +31,12 @@ export const GET = async (request: NextRequest) => {
     return `${title} - ${tags}`;
   };
 
-  return Response.json({title: page(), images});
+  return Response.json({title: page(), images}, {
+    status: 200,
+    headers: {
+      "Cache-Control": "no-cache",
+      "CDN-Cache-Control": "no-cache",
+      "Vercel-CDN-Cache-Control": "no-cache",
+    },
+  });
 };

@@ -18,5 +18,12 @@ export const GET = async () => {
     id: page.id,
     cover: page.cover && (page.cover.type === "external" ? page.cover.external.url : page.cover.file.url),
   }));
-  return Response.json(list.reverse());
+  return Response.json(list.reverse(), {
+    status: 200,
+    headers: {
+      "Cache-Control": "no-cache",
+      "CDN-Cache-Control": "no-cache",
+      "Vercel-CDN-Cache-Control": "no-cache",
+    },
+  });
 };
