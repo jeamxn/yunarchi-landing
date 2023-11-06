@@ -13,12 +13,20 @@ export const GET = async () => {
   const databases = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_ID_PROJECTS as string,
   });
-  const list = (databases.results as DatabaseObjectResponse[]).map((page) => ({
-    // _origin: page,
-    id: page.id,
-    cover: page.cover && (page.cover.type === "external" ? page.cover.external.url : page.cover.file.url),
-  }));
-  return Response.json(list.reverse(), {
+  const list = (databases.results as DatabaseObjectResponse[]).map((page) => {
+    if(page.properties.No.type !== "number" || !page.cover) return;
+    return {
+      // _origin: page,
+      no: Number(page.properties.No.number),
+      id: page.id,
+      cover: page.cover.type === "external" ? page.cover.external.url : page.cover.file.url,
+    };
+  }).filter((page) => page !== undefined).sort((a, b) => {
+    if(!a || !b) return 0;
+    return a.no - b.no;
+  });
+
+  return Response.json(list, {
     status: 200,
     headers: {
       "Cache-Control": "no-cache",
