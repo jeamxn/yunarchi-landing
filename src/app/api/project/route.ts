@@ -29,9 +29,9 @@ export const GET = async () => {
   return Response.json(list, {
     status: 200,
     headers: {
-      "Cache-Control": "no-cache",
-      "CDN-Cache-Control": "no-cache",
-      "Vercel-CDN-Cache-Control": "no-cache",
+      "Cache-Control": "s-maxage=1",
+      "CDN-Cache-Control": "s-maxage=1",
+      "Vercel-CDN-Cache-Control": "s-maxage=1",
     },
   });
 };

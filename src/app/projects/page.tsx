@@ -10,8 +10,6 @@ import React from "react";
 import { Main } from "@/components";
 import styles from "@/styles/pages/Projects.module.css";
 
-export const fetchCache = "force-no-store";
-
 const Page = () => {
   const router = useRouter();
   const [data, setData] = React.useState<ResponseData[]>([]);
