@@ -7,6 +7,8 @@ import React from "react";
 import { Main } from "@/components";
 import styles from "@/styles/pages/Project.module.css";
 
+export const fetchCache = "force-no-store";
+
 const Page = ({ params }: {
   params: {
     id: number;
