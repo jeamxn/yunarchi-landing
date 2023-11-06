@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@notionhq/client": "^2.2.13",
     "@types/cookie": "^0.5.2",
     "axios": "^1.5.1",
     "browser-image-compression": "^2.0.2",
