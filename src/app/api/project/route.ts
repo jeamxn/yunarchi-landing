@@ -6,7 +6,7 @@ export type ResponseData = {
   cover: string;
 };
 
-export const GET = async () => {
+export const POST = async () => {
   const notion = new Client({
     auth: process.env.NOTION_API_KEY,
   });

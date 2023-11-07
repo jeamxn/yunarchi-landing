@@ -15,7 +15,7 @@ const Page = () => {
   const [data, setData] = React.useState<ResponseData[]>([]);
   const init = async () => {
     const { data: res } = await axios({
-      method: "GET",
+      method: "POST",
       url: "/api/project",
     });
     setData(res);
