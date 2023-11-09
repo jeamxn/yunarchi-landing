@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import type { ResponseData } from "@/app/api/project/route";
 
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -37,7 +37,7 @@ const Page = () => {
                 router.push(`/projects/${e.id}`);
               }}
             >
-              <img
+              <Image
                 src={e.cover}
                 alt=""
                 width={300}

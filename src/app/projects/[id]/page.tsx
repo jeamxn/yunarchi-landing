@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import axios from "axios";
+import Image from "next/image";
 import React from "react";
 
 import { Main } from "@/components";
@@ -36,7 +36,7 @@ const Page = ({ params }: {
     <Main className={styles.container}>
       <div className={!imgLoading ? styles.imageBox : styles.imageCover}>
         {
-          images.length ? <img
+          images.length ? <Image
             alt="project image"
             src={images[i]}
             width={630}
