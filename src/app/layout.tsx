@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 
+import localFont from "next/font/local";
+
 import "@/styles/globals.css";
+
+const myFont = localFont({
+  src: "./woff2/08SeoulHangangL.woff2",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "YUN Architects",
@@ -25,7 +32,7 @@ const Layout = ({
   children: React.ReactNode
 }) => {
   return (
-    <html lang="ko">
+    <html lang="ko" className={myFont.className}>
       <body>
         {children}
       </body>

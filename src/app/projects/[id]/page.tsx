@@ -7,10 +7,11 @@ import React from "react";
 import { Main } from "@/components";
 import styles from "@/styles/pages/Project.module.css";
 
+type Props = {
+  id: number;
+};
 const Page = ({ params }: {
-  params: {
-    id: number;
-  };
+  params: Props;
 }) => {
   const [imgLoading, setImgLoading] = React.useState(false);
   const [data, setData] = React.useState("");
@@ -32,11 +33,11 @@ const Page = ({ params }: {
     init();
   }, [params.id]);
 
-  return data && (
+  return (
     <Main className={styles.container}>
       <div className={!imgLoading ? styles.imageBox : styles.imageCover}>
         {
-          images.length ? <Image
+          data ? <Image
             alt="project image"
             src={images[i]}
             width={630}
