@@ -1,11 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: "L";
   src: url(woff2/08SeoulHangangL.woff2) format("woff2");
-}
-@font-face {
-  font-family: "M";
-  src: url(woff2/08SeoulHangangM.woff2) format("woff2");
-}
+} */
 :root{
   --color-main: 70, 77, 153;
 }
@@ -16,7 +12,7 @@
   margin: 0;
   -webkit-tap-highlight-color : transparent;
   word-break: keep-all;
-  font-family: L;
+  /* font-family: L; */
 
   outline: none;
   border: none;

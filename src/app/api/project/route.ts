@@ -2,6 +2,7 @@ import { Client } from "@notionhq/client";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export type ResponseData = {
+  no: number;
   id: string;
   cover: string;
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { useRecoilState } from "recoil";
@@ -46,18 +47,16 @@ const Header = () => {
       <div className={styles.menu}>
         {
           menus.map((m, i) => (
-            <div
+            <Link
               key={i}
+              href={m.link}
               className={styles.menuItem}
-              onClick={() => {
-                router.push(m.link);
-              }}
               style={{
                 opacity: menu === i ? 1 : ""
               }}
             >
               {m.name}
-            </div>
+            </Link>
           ))
         }
       </div>

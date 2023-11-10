@@ -4,14 +4,13 @@ import type { ResponseData } from "@/app/api/project/route";
 
 import axios from "axios";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import React from "react";
 
 import { Main } from "@/components";
 import styles from "@/styles/pages/Projects.module.css";
 
 const Page = () => {
-  const router = useRouter();
   const [data, setData] = React.useState<ResponseData[]>([]);
   const init = async () => {
     const { data: res } = await axios({
@@ -30,12 +29,10 @@ const Page = () => {
       {
         data.length ? data.map((e, i) => {
           return (
-            <div 
+            <Link
+              href={`/projects/${e.id}`} 
               key={i}
               className={styles.thumbnailBox} 
-              onClick={() => {
-                router.push(`/projects/${e.id}`);
-              }}
             >
               <Image
                 src={e.cover}
@@ -53,7 +50,7 @@ const Page = () => {
                   e.currentTarget.style.background = "#fff";
                 }}
               />
-            </div>
+            </Link>
           );
         }) : (
           <div className={styles.loading}>
