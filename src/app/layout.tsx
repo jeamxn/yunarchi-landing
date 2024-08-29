@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import "@/styles/globals.css";
+import RecoilProvider from "@/components/providers/RecoilProvider";
+
+import Loading from "./loading";
 
 const myFont = localFont({
   src: "./woff2/08SeoulHangangL.woff2",
@@ -34,7 +37,10 @@ const Layout = ({
   return (
     <html lang="ko" className={myFont.className}>
       <body>
-        {children}
+        <RecoilProvider>
+          {children}
+          <Loading />
+        </RecoilProvider>
       </body>
     </html>
   );
