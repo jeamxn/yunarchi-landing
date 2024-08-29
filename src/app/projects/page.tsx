@@ -1,6 +1,5 @@
 import { Client } from "@notionhq/client";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -34,11 +33,11 @@ const Page = async () => {
         data.length ? data.map((e, i) => {
           return (
             <Link
-              href={`/projects/${e.id}`} 
+              href={`/projects/${e?.id || ""}`} 
               key={i}
               className={styles.thumbnailBox} 
             >
-              <CustomImage src={e.cover} />
+              <CustomImage src={e?.cover || ""} />
             </Link>
           );
         }) : (
