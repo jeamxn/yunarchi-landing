@@ -1,5 +1,6 @@
 import { Client } from "@notionhq/client";
 import { ImageBlockObjectResponse, PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { redirect } from "next/navigation";
 import React from "react";
 
 import PageContent from "./pageContent";
@@ -10,7 +11,7 @@ type Props = {
 const Page = async ({ params }: {
   params: Props;
 }) => {
-  if(!params.id) return;
+  if(!params.id) return redirect("/");
 
   const block_id = params.id;
 
