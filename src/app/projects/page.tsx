@@ -1,8 +1,5 @@
-"use client";
-
-import type { ResponseData } from "@/app/api/project/route";
-
-import axios from "axios";
+import { Client } from "@notionhq/client";
+import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -10,19 +7,26 @@ import React from "react";
 import { Main } from "@/components";
 import styles from "@/styles/pages/Projects.module.css";
 
-const Page = () => {
-  const [data, setData] = React.useState<ResponseData[]>([]);
-  const init = async () => {
-    const { data: res } = await axios({
-      method: "POST",
-      url: "/api/project",
-    });
-    setData(res);
-  };
+import CustomImage from "./CustomImage";
 
-  React.useEffect(() => {
-    init();
-  }, []);
+const Page = async () => {
+  const notion = new Client({
+    auth: process.env.NOTION_API_KEY,
+  });
+  const databases = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE_ID_PROJECTS as string,
+  });
+  const data = (databases.results as DatabaseObjectResponse[]).map((page) => {
+    if(page.properties.No.type !== "number" || !page.cover) return;
+    return {
+      no: Number(page.properties.No.number),
+      id: page.id,
+      cover: page.cover.type === "external" ? page.cover.external.url : page.cover.file.url,
+    };
+  }).filter((page) => page !== undefined).sort((a, b) => {
+    if(!a || !b) return 0;
+    return a.no - b.no;
+  });
 
   return (
     <Main className={styles.main}>
@@ -34,27 +38,12 @@ const Page = () => {
               key={i}
               className={styles.thumbnailBox} 
             >
-              <Image
-                src={e.cover}
-                alt=""
-                width={300}
-                height={200}
-                className={styles.thumbnail}
-                loading="lazy"
-                onLoadStart={(e) => {
-                  e.currentTarget.style.opacity = "";
-                  e.currentTarget.style.background = "";
-                }}
-                onLoad={(e) => {
-                  e.currentTarget.style.opacity = "1";
-                  e.currentTarget.style.background = "#fff";
-                }}
-              />
+              <CustomImage src={e.cover} />
             </Link>
           );
         }) : (
           <div className={styles.loading}>
-            Loading...
+            데이터가 없습니다.
           </div>
         )
       }
