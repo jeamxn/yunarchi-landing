@@ -1,9 +1,9 @@
 import { Client } from "@notionhq/client";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import Link from "next/link";
 import React from "react";
 
 import { Main } from "@/components";
+import Linker from "@/components/Linker";
 import styles from "@/styles/pages/Projects.module.css";
 
 import CustomImage from "./CustomImage";
@@ -32,13 +32,13 @@ const Page = async () => {
       {
         data.length ? data.map((e, i) => {
           return (
-            <Link
+            <Linker
               href={`/projects/${e?.id || ""}`} 
               key={i}
               className={styles.thumbnailBox} 
             >
               <CustomImage src={e?.cover || ""} />
-            </Link>
+            </Linker>
           );
         }) : (
           <div className={styles.loading}>

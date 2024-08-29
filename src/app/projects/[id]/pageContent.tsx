@@ -14,7 +14,7 @@ const PageContent = ({
     images: string[];
   };
 }) => {
-  const [imgLoading, setImgLoading] = React.useState(false);
+  const [imgLoading, setImgLoading] = React.useState(true);
   const [i, setI] = React.useState(0);
 
   return (

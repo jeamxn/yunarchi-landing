@@ -1,12 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { useRecoilState } from "recoil";
 
 import styles from "@/styles/components/Header.module.css";
 import { menuAtom } from "@/utils/states";
+
+import Linker from "./Linker";
 
 const menus = [
   {
@@ -34,18 +35,18 @@ const Header = () => {
 
   return (
     <div className={styles.header}>
-      <Link 
+      <Linker
         className={styles.titleBox} 
         href={"/"}
         prefetch
       >
         <div className={styles.title1}>D.G. YUN-ARCHITECTS</div>
         <div className={styles.title2}>디자인그룹윤건축사사무소</div>
-      </Link>
+      </Linker>
       <div className={styles.menu}>
         {
           menus.map((m, i) => (
-            <Link
+            <Linker
               key={i}
               href={m.link}
               className={styles.menuItem}
@@ -54,7 +55,7 @@ const Header = () => {
               }}
             >
               {m.name}
-            </Link>
+            </Linker>
           ))
         }
       </div>
