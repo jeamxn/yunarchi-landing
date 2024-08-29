@@ -27,7 +27,7 @@ const Page = async ({ params }: {
     if(block.type !== "image") return;
     if(block.image.type !== "file") return;
     return block.image.file.url;
-  }).filter((url) => url !== undefined);
+  }).filter((url) => url !== undefined) as string[];
 
   const page = () => {
     const page = pages as PageObjectResponse;
@@ -40,7 +40,7 @@ const Page = async ({ params }: {
   };
 
   return (
-    <PageContent res={{ title: page(), images }} />
+    <PageContent res={{ title: page(), images: images || [] }} />
   );
 };
 
