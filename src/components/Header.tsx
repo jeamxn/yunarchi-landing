@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { useRecoilState } from "recoil";
 
@@ -15,7 +15,7 @@ const menus = [
   },
   {
     name: "PROJECTS",
-    link: "/projects"
+    link: "/"
   },
   {
     name: "CONTACT",
@@ -26,7 +26,6 @@ const menus = [
 const Header = () => {
   const [menu, setMenu] = useRecoilState(menuAtom);
   const pathname = usePathname();
-  const router = useRouter();
 
   React.useEffect(() => {
     const menu = menus.findIndex(m => m.link === `/${pathname.split("/")[1]}`);
@@ -35,15 +34,14 @@ const Header = () => {
 
   return (
     <div className={styles.header}>
-      <div 
+      <Link 
         className={styles.titleBox} 
-        onClick={() => {
-          router.push(menus[1].link);
-        }}
+        href={"/"}
+        prefetch
       >
         <div className={styles.title1}>D.G. YUN-ARCHITECTS</div>
         <div className={styles.title2}>디자인그룹윤건축사사무소</div>
-      </div>
+      </Link>
       <div className={styles.menu}>
         {
           menus.map((m, i) => (
@@ -52,7 +50,7 @@ const Header = () => {
               href={m.link}
               className={styles.menuItem}
               style={{
-                opacity: menu === i ? 1 : ""
+                opacity: menu === i || (m.name === "PROJECTS" && pathname.split("/")[1] === "projects") ? 1 : ""
               }}
             >
               {m.name}
