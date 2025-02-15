@@ -12,4 +12,4 @@ EXPOSE 3000/tcp
 RUN bun run build
 ENTRYPOINT [ "bun", "run", "start" ]
 
-LABEL org.opencontainers.image.source=https://github.com/jeamxn/YunArchi-hompage
+LABEL org.opencontainers.image.source=https://github.com/jeamxn/yunarchi-landing
