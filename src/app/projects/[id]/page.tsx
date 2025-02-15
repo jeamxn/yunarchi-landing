@@ -5,11 +5,10 @@ import React from "react";
 
 import PageContent from "./pageContent";
 
-type Props = {
-  id: string;
-};
 const Page = async ({ params }: {
-  params: Props;
+  params: {
+    id: string;
+  };
 }) => {
   if(!params.id) return redirect("/");
 
