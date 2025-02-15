@@ -52,7 +52,7 @@ pipeline {
                         --name ${env.CONTAINER_NAME} \
                         --restart always \
                         --network proxy \
-                        --volume /mnt/data/services/yunarchi-landing/.env:/app/.env \
+                        --volume /mnt/data/services/${IMAGE_NAME}/.env:/app/.env \
                         ${env.IMAGE_URL}"
                     sh "docker start ${env.CONTAINER_NAME}"
                 }
