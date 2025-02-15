@@ -5,14 +5,15 @@ import React from "react";
 
 import PageContent from "./pageContent";
 
+type Props = {
+  id: string;
+};
 const Page = async ({ params }: {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Props;
 }) => {
-  if(!(await params).id) return redirect("/");
+  if(!params.id) return redirect("/");
 
-  const block_id = (await params).id;
+  const block_id = params.id;
 
   const notion = new Client({
     auth: process.env.NOTION_API_KEY,
