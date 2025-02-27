@@ -17,11 +17,13 @@ pipeline {
                 checkout scm
             }
         }
-        
+
         stage('Build Image') {
             steps {
                 script {
-                    docker.build(env.IMAGE_URL)
+                    withCredentials([string(credentialsId: 'jeamxn-yunarchi-landing', variable: 'DOPPLER_TOKEN')]) {
+                        docker.build(env.IMAGE_URL, '--secret id=doppler,env=DOPPLER_TOKEN .')
+                    }
                 }
             }
         }
@@ -45,15 +47,20 @@ pipeline {
             }
         }
 
-        stage('Deploy Container') {
+        stage('Deploy') {
             steps {
                 script {
-                    sh "docker create \
-                        --name ${env.CONTAINER_NAME} \
-                        --restart always \
-                        --network proxy \
-                        --volume /mnt/data/services/yunarchi-landing/.env:/app/.env \
-                        ${env.IMAGE_URL}"
+                    sh "docker rm -f ${env.CONTAINER_NAME} || true"
+                    withCredentials([string(credentialsId: 'jeamxn-yunarchi-landing', variable: 'DOPPLER_TOKEN')]) {
+                        sh """
+                            docker create \
+                                --name ${env.CONTAINER_NAME} \
+                                -e DOPPLER_TOKEN=${DOPPLER_TOKEN} \
+                                --restart always \
+                                --network proxy \
+                                ${env.IMAGE_URL}
+                        """
+                    }
                     sh "docker start ${env.CONTAINER_NAME}"
                 }
             }
