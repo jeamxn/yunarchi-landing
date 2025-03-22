@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import Image from "next/image";
 import React from "react";
 
 import styles from "@/styles/pages/Projects.module.css";
@@ -10,7 +10,7 @@ const CustomImage = ({
 }: {
   src: string;
 }) => (
-  <Image
+  <img
     src={src}
     alt=""
     width={300}

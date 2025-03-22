@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Image from "next/image";
@@ -21,7 +22,7 @@ const PageContent = ({
     <Main className={styles.container}>
       <div className={!imgLoading ? styles.imageBox : styles.imageCover}>
         {
-          res.images ? <Image
+          res.images ? <img
             alt="project image"
             src={res.images[i]}
             width={630}
